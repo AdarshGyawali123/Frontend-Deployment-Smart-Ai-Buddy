@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+:root {
+  --background: 245 247 249;
+  --foreground: 3 4 5;
+  --card: 255 255 255;
+  --card-foreground: 0 7 14;
+  --popover: 237 244 252;
+  --popover-foreground: 0 7 14;
+  --primary: 0 123 255;
+  --primary-foreground: 240 247 255;
+  --secondary: 45 185 227;
+  --secondary-foreground: 12 72 90;
+  --muted: 210 216 222;
+  --muted-foreground: 65 76 88;
+  --accent: 255 40 84;
+  --accent-foreground: 255 153 174;
+  --destructive: 255 56 43;
+  --destructive-foreground: 255 255 255;
+  --border: 232 237 243;
+  --input: 202 214 227;
+  --ring: 232 237 243;
+
+  --android-background: 245 247 248;
+  --android-foreground: 4 5 6;
+  --android-card: 255 255 255;
+  --android-card-foreground: 0 8 16;
+  --android-popover: 236 244 252;
+  --android-popover-foreground: 0 8 16;
+  --android-primary: 0 111 231;
+  --android-primary-foreground: 240 247 255;
+  --android-secondary: 176 201 255;
+  --android-secondary-foreground: 0 32 102;
+  --android-muted: 209 215 221;
+  --android-muted-foreground: 65 76 88;
+  --android-accent: 169 73 204;
+  --android-accent-foreground: 217 175 233;
+  --android-destructive: 186 26 26;
+  --android-destructive-foreground: 255 255 255;
+  --android-border: 232 237 242;
+  --android-input: 202 214 226;
+  --android-ring: 232 237 242;
+
+  --web-background: 245 246 248;
+  --web-foreground: 4 5 6;
+  --web-card: 255 255 255;
+  --web-card-foreground: 0 8 16;
+  --web-popover: 236 244 252;
+  --web-popover-foreground: 0 8 16;
+  --web-primary: 0 110 227;
+  --web-primary-foreground: 240 247 255;
+  --web-secondary: 176 201 255;
+  --web-secondary-foreground: 0 32 102;
+  --web-muted: 215 221 228;
+  --web-muted-foreground: 62 75 91;
+  --web-accent: 169 73 204;
+  --web-accent-foreground: 217 175 233;
+  --web-destructive: 186 26 26;
+  --web-destructive-foreground: 255 255 255;
+  --web-border: 232 237 242;
+  --web-input: 202 214 226;
+  --web-ring: 232 237 242;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 0 2 4;
+    --foreground: 247 251 255;
+    --card: 18 30 42;
+    --card-foreground: 247 251 255;
+    --popover: 38 43 48;
+    --popover-foreground: 247 251 255;
+    --primary: 0 123 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 45 184 226;
+    --secondary-foreground: 13 72 89;
+    --muted: 210 216 222;
+    --muted-foreground: 65 76 88;
+    --accent: 255 40 84;
+    --accent-foreground: 255 153 174;
+    --destructive: 254 67 54;
+    --destructive-foreground: 255 255 255;
+    --border: 56 63 71;
+    --input: 67 76 85;
+    --ring: 56 63 71;
+
+    --android-background: 0 2 5;
+    --android-foreground: 246 250 255;
+    --android-card: 18 29 42;
+    --android-card-foreground: 246 250 255;
+    --android-popover: 37 42 48;
+    --android-popover-foreground: 246 250 255;
+    --android-primary: 43 145 255;
+    --android-primary-foreground: 0 0 0;
+    --android-secondary: 176 201 255;
+    --android-secondary-foreground: 0 32 102;
+    --android-muted: 209 215 221;
+    --android-muted-foreground: 65 76 88;
+    --android-accent: 176 92 207;
+    --android-accent-foreground: 217 176 232;
+    --android-destructive: 147 0 10;
+    --android-destructive-foreground: 255 255 255;
+    --android-border: 55 63 71;
+    --android-input: 67 75 85;
+    --android-ring: 55 63 71;
+
+    --web-background: 0 2 5;
+    --web-foreground: 246 250 255;
+    --web-card: 18 29 42;
+    --web-card-foreground: 246 250 255;
+    --web-popover: 37 42 48;
+    --web-popover-foreground: 246 250 255;
+    --web-primary: 40 144 255;
+    --web-primary-foreground: 0 0 0;
+    --web-secondary: 176 201 255;
+    --web-secondary-foreground: 0 32 102;
+    --web-muted: 215 221 228;
+    --web-muted-foreground: 62 75 91;
+    --web-accent: 176 92 207;
+    --web-accent-foreground: 217 176 232;
+    --web-destructive: 147 0 10;
+    --web-destructive-foreground: 255 255 255;
+    --web-border: 55 63 70;
+    --web-input: 67 75 85;
+    --web-ring: 55 63 70;
+  }
+}
+}
