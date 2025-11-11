@@ -1,29 +1,79 @@
 import React, { memo } from "react";
 import { Tabs } from "expo-router";
-import { Image, ImageBackground, Pressable, Text, View } from "react-native";
+import { Platform, Image, ImageBackground, Pressable, Text, View, ImageStyle, ViewStyle } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useThemeMode } from "@/theme/ThemeProvider";
 import { images } from "@/constants/images";
 import { icons } from "@/constants/icons";
 
 type TabIconProps = { focused: boolean; icon: any; label: string };
+const isWeb = Platform.OS === "web";
+const webStyles: {
+  focusedContainer: ViewStyle;
+  unfocusedContainer: ViewStyle;
+  icon: ImageStyle;
+  imageBackgroundImageStyle: ImageStyle | any;
+} = {
+  focusedContainer: {
+    minWidth: 118,
+    height: 54,
+    marginTop: 0,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 999,
+    overflow: "hidden",
+  },
+  unfocusedContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+  },
+  imageBackgroundImageStyle: ({ objectFit: "cover", objectPosition: "center" } as unknown) as ImageStyle,
+};
 
 const TabIcon = memo(({ focused, icon, label }: TabIconProps) => {
   if (focused) {
     return (
       <ImageBackground
         source={images.highlight}
-        className="flex flex-row w-full flex-1 min-w-[112px] min-h-16 mt-4 justify-center items-center rounded-full overflow-hidden"
+        resizeMode="cover"
+        {...(isWeb
+          ? {
+              style: webStyles.focusedContainer,
+              imageStyle: webStyles.imageBackgroundImageStyle,
+            }
+          : {
+              className:
+                "flex flex-row w-full flex-1 min-w-[112px] min-h-16 mt-4 justify-center items-center rounded-full overflow-hidden",
+            })}
       >
-        <Image source={icon} tintColor="#151312" className="size-7" />
+        <Image
+          source={icon}
+          tintColor="#151312"
+          {...(isWeb ? { style: webStyles.icon, resizeMode: "contain" } : { className: "size-7", resizeMode: "contain" })}
+        />
         <Text className="text-secondary text-[16px] font-semibold ml-2">{label}</Text>
       </ImageBackground>
     );
   }
 
   return (
-    <View className="size-full justify-center items-center mt-4 rounded-full">
-      <Image source={icon} tintColor="#A8B5DB" className="size-6" />
+    <View
+      {...(isWeb
+        ? { style: webStyles.unfocusedContainer }
+        : { className: "size-full justify-center items-center mt-4 rounded-full" })}
+    >
+      <Image
+        source={icon}
+        tintColor="#A8B5DB"
+        {...(isWeb ? { style: webStyles.icon, resizeMode: "contain" } : { className: "size-6", resizeMode: "contain" })}
+      />
     </View>
   );
 });
