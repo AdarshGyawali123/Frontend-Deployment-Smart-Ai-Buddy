@@ -1,7 +1,8 @@
-import { View, Text } from "react-native";
+import { View, Image, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useThemeMode } from "@/theme/ThemeProvider";
+import { images } from "@/constants/images";
 
 export default function Header() {
   const { colors, colorScheme } = useThemeMode();
@@ -16,12 +17,22 @@ export default function Header() {
           borderBottomWidth: 1,
         }}
       >
-        <Text
-          className="text-lg font-semibold"
-          style={{ color: colors.foreground }}
-        >
-          Smart AI Buddy
-        </Text>
+        <View className="flex-row items-center gap-2">
+          <Image
+            source={images.smartAiLogo}
+            style={{
+              width: 28,
+              height: 28,
+              resizeMode: "contain",
+            }}
+          />
+          <Text
+            className="text-lg font-semibold"
+            style={{ color: colors.foreground }}
+          >
+            Smart AI Buddy
+          </Text>
+        </View>
         <ThemeToggle />
       </View>
     </SafeAreaView>
