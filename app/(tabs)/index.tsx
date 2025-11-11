@@ -132,7 +132,7 @@ export default function HomeScreen() {
       >
         {/* Greeting */}
         <Text className="text-2xl font-bold text-light-text dark:text-dark-text">
-          Hey {user?.name?.split(" ")[0] || "there"} 👋
+          Hey {user?.name?.split(" ")[0] || "there"}!
         </Text>
         <Text className="mt-1 text-light-subtext dark:text-dark-subtext">
           Turn your notes into summaries, flashcards, quizzes — and get answers with AI Tutor.
