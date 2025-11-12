@@ -15,6 +15,7 @@ type ThemeCtx = {
 
 const Ctx = createContext<ThemeCtx | null>(null);
 const STORAGE_KEY = "preferred-color-scheme";
+const WEB_STORAGE_KEY = STORAGE_KEY;
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   // NativeWind’s color scheme control (drives `dark` class)
@@ -22,6 +23,26 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [scheme, setScheme] = useState<Scheme>(nwScheme);
 
   // Load persisted preference (if any)
+  useEffect(() => {
+    if (Platform.OS !== "web") return;
+
+    try {
+      const saved = localStorage.getItem(WEB_STORAGE_KEY) as Scheme | null;
+      const start = (saved as Scheme) ?? (nwScheme as Scheme) ?? "light";
+      if (start === "dark") document.documentElement.classList.add("dark");
+      else document.documentElement.classList.remove("dark");
+
+      if (start !== scheme) {
+        setScheme(start);
+        setColorScheme(start);
+      }
+    } catch (e) {
+      if ((nwScheme as Scheme) !== scheme) {
+        setScheme(nwScheme as Scheme);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     (async () => {
       const saved = (await AsyncStorage.getItem(STORAGE_KEY)) as Scheme | null;
@@ -37,6 +58,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (nwScheme !== scheme) setScheme(nwScheme);
   }, [nwScheme, scheme]);
+
+  useEffect(() => {
+    if (Platform.OS === "web") {
+      const root = document.documentElement;
+      if (!root) return;
+      if (scheme === "dark") root.classList.add("dark");
+      else root.classList.remove("dark");
+    }
+  }, [scheme]);
 
   // Platform-aware token set for current scheme
   const colors = useMemo(() => COLORS[scheme], [scheme]);

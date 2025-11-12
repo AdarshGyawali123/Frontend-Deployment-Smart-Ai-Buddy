@@ -171,9 +171,11 @@ export default function FlashcardsScreen() {
               Tap a card to flip between question and answer.
             </Text>
 
-            <View className="mt-4 gap-3">
+            <View className="mt-4">
               {cards.map((c) => (
-                <FlipCard key={c.id} q={c.q} a={c.a} />
+                <View key={c.id} className="mb-3">
+                  <FlipCard q={c.q} a={c.a} />
+                </View>
               ))}
             </View>
 
@@ -227,9 +229,8 @@ function EmptyState({
   );
 }
 
-/** Simple 3D-ish flip card (no external libs) */
 import { useRef } from "react";
-import { Pressable as RNPressable } from "react-native";
+import { Platform, Pressable as RNPressable, ViewStyle, TextStyle } from "react-native";
 import Animated, {
   useSharedValue,
   withTiming,
@@ -238,9 +239,23 @@ import Animated, {
 } from "react-native-reanimated";
 import * as Haptics from "expo-haptics";
 
+const isWeb = Platform.OS === "web";
+
+/**
+ * Lightweight web-only static style fragment for animated faces.
+ * We keep it small and scoped to web only to avoid changing native layout.
+ */
+const webFaceStaticStyle: ViewStyle = {
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "center",
+  paddingHorizontal: 16, // matches px-4
+  // backgroundColor left to className so dark/light themes still apply on native.
+};
+
 function FlipCard({ q, a }: { q: string; a: string }) {
-  const rotation = useSharedValue(0);           // 0 -> front, 180 -> back
-  const isFlipping = useSharedValue(false);     // stays on the UI thread
+  const rotation = useSharedValue(0);
+  const isFlipping = useSharedValue(false);
 
   const frontStyle = useAnimatedStyle(() => ({
     transform: [
@@ -275,10 +290,10 @@ function FlipCard({ q, a }: { q: string; a: string }) {
 
   return (
     <RNPressable onPress={flip}>
-      <View className="h-40 rounded-2xl border border-light-border dark:border-dark-border overflow-hidden">
+      <View className="h-40 rounded-2xl bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border overflow-hidden relative">
         {/* front */}
         <Animated.View
-          style={frontStyle}
+          style={isWeb ? [frontStyle, webFaceStaticStyle] : frontStyle}
           className="flex-1 items-center justify-center bg-light-surface dark:bg-dark-surface px-4"
         >
           <Text className="text-lg font-semibold text-light-subtext dark:text-dark-subtext">
@@ -292,7 +307,7 @@ function FlipCard({ q, a }: { q: string; a: string }) {
 
         {/* back */}
         <Animated.View
-          style={backStyle}
+          style={isWeb ? [backStyle, webFaceStaticStyle] : backStyle}
           className="flex-1 items-center justify-center bg-light-surface dark:bg-dark-surface px-4"
         >
           <Text className="text-lg font-semibold text-light-subtext dark:text-dark-subtext">

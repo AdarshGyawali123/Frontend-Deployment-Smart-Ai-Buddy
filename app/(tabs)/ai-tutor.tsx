@@ -88,6 +88,7 @@ function extractReply(payload: any): string | null {
 export default function AITutorScreen() {
   const insets = useSafeAreaInsets();
   const TAB_BAR_HEIGHT = 54;
+  const EXTRA_MARGIN = Platform.OS === "ios" ? 12 : 25;
 
   const { getAccessToken, user, loading } = useAuth();
   const { colors } = useThemeMode();
@@ -410,7 +411,7 @@ export default function AITutorScreen() {
         className="px-4 py-3 border-t"
         style={{
           borderTopColor: colors.grey4,
-          paddingBottom: insets.bottom + TAB_BAR_HEIGHT + 12,
+          paddingBottom: insets.bottom + TAB_BAR_HEIGHT + EXTRA_MARGIN,
         }}
       >
         <View
